@@ -16,8 +16,7 @@ const db = new sqlite3.Database(dbName);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../static')));
 
-app.use('/api', router);
-
+// Initialize the database and create the users table if it doesn't exist
 const createUsersTable = `
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,11 +36,11 @@ db.run(createUsersTable, (err) => {
     console.log('Table "users" created or already exists.');
   }
 });
-app.post('/', (req, res) => {
-    console.log('Все ок');
-    res.status(200).json({ message: "Все ок" });
-});
+
+app.use('/', router);
+
+
 
 app.listen(PORT, () => {
-    console.log('http://localhost:' + PORT);
+  console.log( PORT);
 });
