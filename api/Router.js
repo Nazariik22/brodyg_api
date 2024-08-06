@@ -1,6 +1,6 @@
 import Router from "express";
 import sqlite3 from 'sqlite3';
-import { UserController } from "./Controller.js/UserController.js";
+import { UserController } from "../Controller.js/UserController.js";
 
 const router = new Router();
 //*CRUD create reade update delete
