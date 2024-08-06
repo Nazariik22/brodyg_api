@@ -1,21 +1,24 @@
-import express from 'express'
-import router from './Router.js'
-import sqlite3 from 'sqlite3';
-const PORT = 3000
-const app = express()
+import express from 'express';
+import router from './Router.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-app.use(express.json())
-app.use(express.static( 'static')) 
+const PORT = process.env.PORT || 3000;
+const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use('/api',router)
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'static')));
 
-app.post('/',(req,res)=>{
-    console.log('Все ок')
-    res.status(200).json({message:"Все ок"})
-})
+app.use('/api', router);
 
-//app.listen(port, host?, backlog?, callback)
-app.listen(PORT,()=>{
-    console.log('http://localhost:'+PORT)
-})
+app.post('/', (req, res) => {
+    console.log('Все ок');
+    res.status(200).json({ message: "Все ок" });
+});
+
+app.listen(PORT, () => {
+    console.log('http://localhost:' + PORT);
+});
